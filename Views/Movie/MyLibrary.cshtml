@@ -1,0 +1,99 @@
+@model List<MediaItem>
+
+
+<div class="p-5 mb-5 rounded-3 text-white shadow-lg" 
+     style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
+            url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2000'); 
+            background-size: cover; background-position: center;">
+    <div class="container-fluid py-4">
+        <h1 class="display-4 fw-bold">My Personal Archive</h1>
+        <p class="fs-5 text-secondary">Curating @Model.Count of your favorite stories.</p>
+        <div class="d-flex gap-2 mt-3">
+             <span class="badge rounded-pill bg-danger p-2 px-3">@Model.Count(m => m.MediaType == "Movie") Movies</span>
+             <span class="badge rounded-pill bg-success p-2 px-3">@Model.Count(m => m.MediaType == "Book") Books</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <form asp-action="MyLibrary" method="get" class="row g-2 mb-5 align-items-center">
+        <div class="col-md-7">
+            <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fas fa-search"></i></span>
+                <input type="text" name="searchTerm" class="form-control bg-dark text-white border-secondary" placeholder="Search title...">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <select name="mediaType" class="form-select bg-dark text-white border-secondary">
+                <option value="">All Media</option>
+                <option value="Movie">Movies</option>
+                <option value="Book">Books</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100 fw-bold">FILTER</button>
+        </div>
+    </form>
+
+    @* 3. The Grid *@
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <i class="fas fa-film fa-3x text-secondary mb-3"></i>
+            <h3 class="text-secondary">Your library is empty.</h3>
+            <p>Start adding movies or books to see them here!</p>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 bg-transparent border-0">
+
+                        <div class="position-relative overflow-hidden rounded-3 shadow-lg mb-2" style="aspect-ratio: 2/3;">
+                            <img src="@item.ImageUrl" class="w-100 h-100" style="object-fit: cover;">
+                            <span class="position-absolute top-0 start-0 m-2 badge @(item.MediaType == "Movie" ? "bg-danger" : "bg-success")">
+                                @item.MediaType
+                            </span>
+                        </div>
+                        
+
+                        <div class="card-body p-1 d-flex flex-column">
+                            <h6 class="card-title text-white text-truncate mb-1">@item.Title</h6>
+                            
+
+                            <div class="mb-2 text-warning small">
+                                @for (int i = 1; i <= 5; i++) {
+                                    <i class="@(i <= item.UserRating ? "fas" : "far") fa-star"></i>
+                                }
+                            </div>
+
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <form asp-action="UpdateRating" method="post" class="d-flex align-items-center gap-1">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <select name="rating" class="form-select form-select-sm bg-dark text-white border-secondary py-0" style="width: 55px; font-size: 0.75rem;">
+                                        @for (int i = 1; i <= 5; i++) {
+                                            <option value="@i" selected="@(item.UserRating == i)">@i</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-link text-primary p-0 text-decoration-none" style="font-size: 0.75rem;">Set</button>
+                                </form>
+
+                                <form asp-action="DeleteFromLibrary" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button class="btn btn-link text-danger btn-sm p-0 text-decoration-none" type="submit">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

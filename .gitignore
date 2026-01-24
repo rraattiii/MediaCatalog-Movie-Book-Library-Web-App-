@@ -1,0 +1,6 @@
+bin/
+obj/
+*.db
+*.user
+.vs/
+appsettings.Development.json

@@ -1,0 +1,143 @@
+/* --- 1. GLOBAL RESET & STICKY FOOTER --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a; /* Deep Cinematic Black */
+    color: #f8f9fa;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Prevents horizontal scrollbar */
+}
+
+/* Main content grows to fill space, pushing footer down */
+main {
+    flex: 1 0 auto;
+    padding-top: 20px;
+}
+
+/* --- 2. CUSTOM SCROLLBAR (Sleek & Dark) --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 10px;
+    border: 2px solid #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0d6efd; /* Glows blue on hover */
+}
+
+/* --- 3. NAVIGATION --- */
+.bg-black-transparent {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000;
+}
+
+.navbar-brand {
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+}
+
+/* --- 4. SEARCH BAR (GLASS-MORPHISM) --- */
+.search-wrapper {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.search-box-glow {
+    background: rgba(30, 30, 30, 0.6) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-box-glow:focus-within {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 25px rgba(13, 110, 253, 0.25);
+    background: rgba(40, 40, 40, 0.9) !important;
+    transform: translateY(-2px);
+}
+
+/* Fix for browser autocomplete yellow background */
+input:-webkit-autofill {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* --- 5. MEDIA CARDS --- */
+.movie-poster-card {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.poster-img {
+    transition: transform 0.6s ease;
+}
+
+.movie-poster-card:hover {
+    transform: translateY(-10px);
+}
+
+.movie-poster-card:hover .poster-img {
+    transform: scale(1.08);
+    filter: brightness(0.4);
+}
+
+.poster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.movie-poster-card:hover .poster-overlay {
+    opacity: 1;
+}
+
+/* --- 6. FOOTER & SOCIALS --- */
+.footer {
+    flex-shrink: 0;
+    background-color: #000 !important;
+    border-top: 1px solid #1a1a1a;
+}
+
+.hover-primary {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.hover-primary:hover {
+    color: #0d6efd !important;
+    transform: translateY(-4px);
+    filter: drop-shadow(0 0 8px rgba(13, 110, 253, 0.6));
+}
+
+/* --- 7. ANIMATIONS --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.smaller {
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+}

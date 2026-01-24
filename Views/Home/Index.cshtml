@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container-fluid px-0 overflow-hidden" style="margin-top: -1rem;">
+
+    <div class="position-relative p-5 text-center bg-dark" 
+         style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
+                url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2000'); 
+                background-size: cover; background-position: center; min-height: 500px; display: flex; align-items: center;">
+        <div class="col-md-6 p-lg-5 mx-auto my-5 text-white">
+            <h1 class="display-3 fw-bold mb-3">Your Stories, <span class="text-primary">Mastered.</span></h1>
+            <p class="lead fw-normal mb-4">Track, rate, and discover your next favorite movie or book in one cinematic space.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-primary btn-lg px-5 fw-bold shadow" asp-controller="Movie" asp-action="Index">Find Movies</a>
+                <a class="btn btn-outline-light btn-lg px-5 fw-bold" asp-controller="Movie" asp-action="MyLibrary">View Library</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container py-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-5">
+                <div class="card h-100 bg-dark border-secondary shadow-lg p-4 text-center transition-hover">
+                    <div class="card-body">
+                        <i class="fas fa-film fa-3x text-danger mb-3"></i>
+                        <h2 class="fw-bold text-white">@ViewBag.MovieCount</h2>
+                        <p class="text-secondary mb-0">Movies in Collection</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card h-100 bg-dark border-secondary shadow-lg p-4 text-center transition-hover">
+                    <div class="card-body">
+                        <i class="fas fa-book-open fa-3x text-success mb-3"></i>
+                        <h2 class="fw-bold text-white">@ViewBag.BookCount</h2>
+                        <p class="text-secondary mb-0">Books in Collection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @if (ViewBag.TopRated != null && ((List<MediaItem>)ViewBag.TopRated).Any())
+    {
+        <div class="container pb-5">
+            <hr class="border-secondary mb-5">
+            <h3 class="fw-bold mb-4 text-white"><i class="fas fa-star text-warning me-2"></i>Your Top Rated</h3>
+            <div class="row row-cols-2 row-cols-md-4 g-4">
+                @foreach (var item in (List<MediaItem>)ViewBag.TopRated)
+                {
+                    <div class="col text-center">
+                        <div class="position-relative mb-2 shadow-lg rounded overflow-hidden" style="aspect-ratio: 2/3;">
+                             <img src="@item.ImageUrl" class="w-100 h-100" style="object-fit: cover;">
+                        </div>
+                        <h6 class="text-white text-truncate mb-0 px-2">@item.Title</h6>
+                        <div class="text-warning small">
+                            @for(int i=0; i < item.UserRating; i++) { <i class="fas fa-star"></i> }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
