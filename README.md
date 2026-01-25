@@ -19,3 +19,6 @@ A modern, full-stack web application built with **ASP.NET Core 10** for managing
 2. Update `appsettings.json` with your TMDB API Key.
 3. Run `dotnet ef database update` to sync the schema.
 4. Run `dotnet run` and visit `http://localhost:5236`.
+
+
+* LinkedIn: [[https://www.linkedin.com/in/rati-kotchuashvili-3a98582a3/](https://www.linkedin.com/in/rati-kotchuashvili-3a98582a3/)]
