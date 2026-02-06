@@ -15,7 +15,7 @@ A modern, full-stack web application built with **ASP.NET Core 10** for managing
 - **APIs:** The Movie Database (TMDB), Open Library API
 
 ##  How to Run
-1. Clone the repo: `git clone [Your-Link]`
+1. Clone the repo: `git clone [(https://github.com/rraattiii/MediaCatalog-Movie-Book-Library-Web-App-)]`
 2. Update `appsettings.json` with your TMDB API Key.
 3. Run `dotnet ef database update` to sync the schema.
 4. Run `dotnet run` and visit `http://localhost:5236`.
